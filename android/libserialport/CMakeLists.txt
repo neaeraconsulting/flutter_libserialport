@@ -11,6 +11,10 @@ add_library(${PROJECT_NAME} SHARED
   "${SOURCE_PATH}/timing.c"
 )
 
+if(ANDROID)
+  set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "-Wl,-z,max-page-size=16384")
+endif()
+
 target_compile_options(${PROJECT_NAME} PRIVATE
   -std=c99 -Wall -Wextra -pedantic -Wmissing-prototypes -Wshadow)
 target_compile_definitions(${PROJECT_NAME} PRIVATE LIBSERIALPORT_ATBUILD)
